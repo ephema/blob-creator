@@ -1,4 +1,5 @@
 const firstSentences = [
+  "Lorem cryptum dolor sit amet, consectetur adipiscing fiat elit.",
   "Crypto ipsum dolor sit amet, consectetur adipiscing blockchain elit.",
   "Hodl ipsum dolor sit amet, consectetur adipiscing fiat elit.",
   "Token ipsum dolor sit amet, consectetur adipiscing blockchain elit.",
