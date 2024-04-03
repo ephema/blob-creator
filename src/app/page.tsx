@@ -23,18 +23,36 @@ export default function Home() {
       privateKey,
       chainId,
       blobContents,
+      to,
+      maxFeePerBlobGasInGwei,
+      value,
+      maxFeePerGasInGwei,
+      maxPriorityFeePerGasInGwei,
+      nonce,
     }: {
       privateKey: Hex;
       chainId: number;
       blobContents: string;
+      to: Hex;
+      maxFeePerBlobGasInGwei: number;
+      value: number;
+      maxFeePerGasInGwei: number;
+      maxPriorityFeePerGasInGwei: number;
+      nonce: number;
     }) => {
       const sendBlobTransactionPromise = sendBlobTransaction({
         blobContents,
         privateKey,
         chainId,
+        to,
+        maxFeePerBlobGasInGwei,
+        value,
+        maxFeePerGasInGwei,
+        maxPriorityFeePerGasInGwei,
+        nonce,
       });
 
-      const toastId = toast.promise(sendBlobTransactionPromise, {
+      toast.promise(sendBlobTransactionPromise, {
         loading: "Submitting Blob...",
         success: (transactionDetails) => {
           console.log("Blob Tx Submitted:", transactionDetails.transactionHash);
@@ -43,7 +61,7 @@ export default function Home() {
           return "Blob successfully submitted";
         },
         error:
-          "There was an error submitting your Blob. Please check the console for details.",
+          "There was an error submitting your blob. Please check the console for details.",
       });
 
       return sendBlobTransactionPromise;
@@ -51,7 +69,7 @@ export default function Home() {
     [],
   );
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-4">
+    <div className="mt-24 flex h-full flex-col items-center gap-4">
       <h1 className="mb-6 text-center text-4xl font-bold tracking-tight">
         Blob Submitter ✨
       </h1>
@@ -62,7 +80,7 @@ export default function Home() {
         transactionDetails={submittedTransactionDetails}
       />
 
-      <div className="w-full">
+      <div className="mb-8 w-full">
         <BlobForm onSubmit={handleSendTransaction} />
       </div>
     </div>

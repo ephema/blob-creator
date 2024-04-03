@@ -36,7 +36,7 @@ export default function RootLayout({
         <WagmiProvider config={wagmiConfig}>
           <QueryClientProvider client={queryClient}>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-              <div className="mx-auto h-screen min-h-screen p-8 md:max-w-3xl">
+              <div className="mx-auto min-h-screen p-8 md:max-w-3xl">
                 {children}
               </div>
               <Toaster />

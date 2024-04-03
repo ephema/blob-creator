@@ -25,6 +25,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -32,7 +37,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { supportedChains } from "@/lib/supportedChains";
 import { getRandomBlobText } from "@/lib/getRandomBlobText";
 import { isBlobSizeWithinLimit } from "@/lib/isBlobSizeWithinLimit";
-import { Hex } from "viem";
+import { Hex, isAddress } from "viem";
+import { ChevronsUpDown } from "lucide-react";
 
 const formSchema = z.object({
   privateKey: z
@@ -53,12 +59,35 @@ const formSchema = z.object({
     .refine((val) =>
       supportedChains.map((chain) => Number(chain.id)).includes(val),
     ),
+
+  // Optional fields
+  to: z
+    .string()
+    .trim()
+    .optional()
+    .transform(
+      (val) => (!val || val.startsWith("0x") ? val : `0x${val}`) as Hex,
+    )
+    .refine((val) => !val || isAddress(val), {
+      message: "Please provide a valid address",
+    }),
+  maxFeePerBlobGasInGwei: z.coerce.number(),
+  value: z.coerce.number().optional(),
+  maxFeePerGasInGwei: z.coerce.number().optional(),
+  maxPriorityFeePerGasInGwei: z.coerce.number().optional(),
+  nonce: z.coerce.number().optional(),
 });
 
 const defaultValues = {
   chainId: 11155111,
   privateKey: "" as Hex,
   blobContents: "",
+  to: "" as Hex,
+  maxFeePerBlobGasInGwei: 500,
+  value: 0,
+  nonce: "" as unknown as number, // TODO: Fix type
+  maxFeePerGasInGwei: "" as unknown as number, // TODO: Fix type
+  maxPriorityFeePerGasInGwei: "" as unknown as number, // TODO: Fix type
 };
 
 type BlobFormProps = {
@@ -115,7 +144,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
               <FormControl>
                 <Input placeholder="0x..." disabled={isSubmitting} {...field} />
               </FormControl>
-              <FormDescription>Use burner wallets only</FormDescription>
+              <FormDescription>Use a burner wallet only</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -153,6 +182,155 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
             </FormItem>
           )}
         />
+
+        <Collapsible>
+          <div className="flex justify-center">
+            <CollapsibleTrigger asChild>
+              <Button variant="ghost" size="sm">
+                Show Additional Settings
+                <ChevronsUpDown className="ml-2 h-4 w-4" />
+              </Button>
+            </CollapsibleTrigger>
+          </div>
+          <CollapsibleContent>
+            <div className="my-8 grid grid-flow-col grid-cols-3 gap-8">
+              <FormField
+                control={form.control}
+                name="to"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>To Address</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="0x..."
+                        disabled={isSubmitting}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Transactions are sent to the null address per default
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="value"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tx Value</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="0"
+                        min="0"
+                        step="0.0000000000001"
+                        disabled={isSubmitting}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>In ETH</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="nonce"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nonce</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="42"
+                        min="0"
+                        disabled={isSubmitting}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Only customize this when trying to override another TX
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="my-8 grid grid-flow-col grid-cols-3 gap-8">
+              <FormField
+                control={form.control}
+                name="maxFeePerBlobGasInGwei"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>maxFeePerBlobGas</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="500"
+                        disabled={isSubmitting}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      In Gwei, not set automatically
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="maxFeePerGasInGwei"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>maxFeePerGas</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="500"
+                        disabled={isSubmitting}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      In Gwei, set automatically
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="maxPriorityFeePerGasInGwei"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>maxPriorityFeePerGas</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="500"
+                        disabled={isSubmitting}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      In Gwei, set automatically
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
+
         <div className="flex justify-center">
           <Button type="submit" disabled={isSubmitting}>
             Submit Blob
