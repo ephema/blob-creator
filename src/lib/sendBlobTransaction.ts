@@ -9,7 +9,7 @@ import {
 import { privateKeyToAccount } from "viem/accounts";
 import { loadKZG } from "kzg-wasm";
 
-import { supportedChains } from "@/lib/supportedChains";
+import { blobscanUrls, supportedChains } from "@/lib/supportedChains";
 
 export const sendBlobTransaction = async ({
   blobContents,
@@ -30,9 +30,14 @@ export const sendBlobTransaction = async ({
     to: "0x0000000000000000000000000000000000000000",
   });
 
+  const chain = getChainFromId(chainId) ?? supportedChains[0];
+  const transactionOnExplorerUrl = `${chain.blockExplorers.default.url}/tx/${transactionHash}`;
+  const transactionOnBlobscanUrl = `${blobscanUrls[chain.name]}/tx/${transactionHash}`;
+
   return {
     transactionHash,
-    chainId: chainId,
+    transactionOnExplorerUrl,
+    transactionOnBlobscanUrl,
   };
 };
 

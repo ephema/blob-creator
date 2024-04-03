@@ -15,17 +15,27 @@ import { getShortAddress } from "@/lib/getShortAddress";
 type DialogProps = {
   dialogOpen: boolean;
   setDialogOpen: (isOpen: boolean) => void;
-  submittedHash: string | null;
-  explorerUrl: string | undefined;
-  blobExplorerRootUrl: string | undefined;
+  transactionDetails: null | {
+    transactionHash: string;
+    transactionOnExplorerUrl: string;
+    transactionOnBlobscanUrl: string;
+  };
 };
 export const SuccessDialog: React.FC<DialogProps> = ({
   dialogOpen,
   setDialogOpen,
-  submittedHash,
-  explorerUrl,
-  blobExplorerRootUrl,
+  transactionDetails,
 }) => {
+  const {
+    transactionHash,
+    transactionOnExplorerUrl,
+    transactionOnBlobscanUrl,
+  } = transactionDetails ?? {
+    transactionHash: "",
+    transactionOnExplorerUrl: "",
+    transactionOnBlobscanUrl: "",
+  };
+
   return (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogContent className="max-w-xl">
@@ -38,32 +48,29 @@ export const SuccessDialog: React.FC<DialogProps> = ({
                 <TableBody>
                   <TableRow>
                     <TableCell className="font-medium">Tx Hash</TableCell>
-                    <TableCell>
-                      {submittedHash && (
+                    {transactionDetails && (
+                      <TableCell>
                         <Link
                           className="text-blue-500 hover:text-blue-400"
                           target="_blank"
                           rel="external noopener noreferrer"
-                          href={`${explorerUrl}/tx/${submittedHash}`}
+                          href={transactionOnExplorerUrl}
                         >
-                          {getShortAddress(submittedHash)}
+                          {getShortAddress(transactionHash)}
                         </Link>
-                      )}
-                      {submittedHash && blobExplorerRootUrl && (
-                        <>
-                          {" ("}
-                          <Link
-                            className="text-blue-500 hover:text-blue-400"
-                            target="_blank"
-                            rel="external noopener noreferrer"
-                            href={`${blobExplorerRootUrl}/tx/${submittedHash}`}
-                          >
-                            Blobscan
-                          </Link>
-                          {")"}
-                        </>
-                      )}
-                    </TableCell>
+
+                        {" ("}
+                        <Link
+                          className="text-blue-500 hover:text-blue-400"
+                          target="_blank"
+                          rel="external noopener noreferrer"
+                          href={transactionOnBlobscanUrl}
+                        >
+                          Blobscan
+                        </Link>
+                        {")"}
+                      </TableCell>
+                    )}
                   </TableRow>
                 </TableBody>
               </Table>
