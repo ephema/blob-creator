@@ -17,17 +17,17 @@ export default function Home() {
   const handleSendTransaction = useCallback(
     async ({
       privateKey,
-      networkId,
+      chainId,
       blobContents,
     }: {
       privateKey: Hex;
-      networkId: number;
+      chainId: number;
       blobContents: string;
     }) => {
       const sendBlobTransactionPromise = sendBlobTransaction({
         blobContents,
         privateKey,
-        networkId,
+        chainId,
       });
 
       const toastId = toast.promise(sendBlobTransactionPromise, {
@@ -58,16 +58,8 @@ export default function Home() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-4">
       <h1 className="mb-6 text-center text-4xl font-bold tracking-tight">
-        Delightful Blobs ✨
+        Blob Submitter ✨
       </h1>
-
-      {/* <SuccessDialog
-        dialogOpen={dialogOpen}
-        setDialogOpen={setDialogOpen}
-        submittedHash={submittedHash}
-        explorerUrl={explorerUrl}
-        blobExplorerRootUrl={blobExplorerRootUrl}
-      /> */}
 
       <div className="w-full">
         <BlobForm onSubmit={handleSendTransaction} />

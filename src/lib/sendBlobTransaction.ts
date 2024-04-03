@@ -9,26 +9,31 @@ import {
 import { privateKeyToAccount } from "viem/accounts";
 import { loadKZG } from "kzg-wasm";
 
-import { supportedNetworks } from "@/lib/supportedNetworks";
+import { supportedChains } from "@/lib/supportedChains";
 
 export const sendBlobTransaction = async ({
   blobContents,
   privateKey,
-  networkId,
+  chainId,
 }: {
   blobContents: string;
   privateKey: Hex;
-  networkId: number;
+  chainId: number;
 }) => {
   const kzg = await getKZG();
-  const walletClient = createViemWalletClient(privateKey, networkId);
+  const walletClient = createViemWalletClient(privateKey, chainId);
 
-  return walletClient.sendTransaction({
+  const transactionHash = await walletClient.sendTransaction({
     blobs: toBlobs({ data: stringToHex(blobContents) }),
     kzg,
     maxFeePerBlobGas: parseGwei("500"), // TODO: Use correct estimate for blobs
     to: "0x0000000000000000000000000000000000000000",
   });
+
+  return {
+    transactionHash,
+    chainId: chainId,
+  };
 };
 
 let kzgPromise: ReturnType<typeof loadKZG> | null = null;
@@ -40,9 +45,9 @@ const getKZG = async () => {
   return kzgPromise;
 };
 
-const createViemWalletClient = (privateKey: Hex, networkId: number) => {
+const createViemWalletClient = (privateKey: Hex, chainId: number) => {
   const account = privateKeyToAccount(privateKey);
-  const chain = getNetworkFromId(networkId);
+  const chain = getChainFromId(chainId);
 
   return createWalletClient({
     account,
@@ -51,5 +56,5 @@ const createViemWalletClient = (privateKey: Hex, networkId: number) => {
   });
 };
 
-const getNetworkFromId = (networkId: number) =>
-  supportedNetworks.find((network) => network.id === networkId);
+const getChainFromId = (chainId: number) =>
+  supportedChains.find((chain) => chain.id === chainId);

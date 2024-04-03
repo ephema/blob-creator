@@ -29,7 +29,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-import { supportedNetworks } from "@/lib/supportedNetworks";
+import { supportedChains } from "@/lib/supportedChains";
 import { getRandomBlobText } from "@/lib/getRandomBlobText";
 import { isBlobSizeWithinLimit } from "@/lib/isBlobSizeWithinLimit";
 import { Hex } from "viem";
@@ -48,15 +48,15 @@ const formSchema = z.object({
     .refine((val) => isBlobSizeWithinLimit(val), {
       message: "Blob can have a maximum of 1024 bytes",
     }),
-  networkId: z.coerce
+  chainId: z.coerce
     .number()
     .refine((val) =>
-      supportedNetworks.map((network) => Number(network.id)).includes(val),
+      supportedChains.map((chain) => Number(chain.id)).includes(val),
     ),
 });
 
 const defaultValues = {
-  networkId: 11155111,
+  chainId: 11155111,
   privateKey: "" as Hex,
   blobContents: "",
 };
@@ -76,7 +76,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="blobContents"
@@ -115,7 +115,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
               <FormControl>
                 <Input placeholder="0x..." disabled={isSubmitting} {...field} />
               </FormControl>
-              <FormDescription>Only use burner wallets</FormDescription>
+              <FormDescription>Use burner wallets only</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -123,10 +123,10 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
 
         <FormField
           control={form.control}
-          name="networkId"
+          name="chainId"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Network</FormLabel>
+              <FormLabel>Chain</FormLabel>
               <Select
                 value={String(field.value)}
                 name={field.name}
@@ -135,16 +135,16 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue
-                      placeholder="Select Network"
+                      placeholder="Select Chain"
                       onBlur={field.onBlur}
                       ref={field.ref}
                     />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {supportedNetworks.map((network) => (
-                    <SelectItem key={network.id} value={String(network.id)}>
-                      {network.name}
+                  {supportedChains.map((chain) => (
+                    <SelectItem key={chain.id} value={String(chain.id)}>
+                      {chain.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -153,10 +153,11 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
             </FormItem>
           )}
         />
-
-        <Button type="submit" disabled={isSubmitting}>
-          Submit
-        </Button>
+        <div className="flex justify-center">
+          <Button type="submit" disabled={isSubmitting}>
+            Submit Blob
+          </Button>
+        </div>
       </form>
     </Form>
   );
