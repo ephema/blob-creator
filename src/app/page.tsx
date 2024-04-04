@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import Link from "next/link";
 import { toast } from "sonner";
 
 import { type Hex } from "viem";
@@ -73,9 +74,23 @@ export default function Home() {
   );
   return (
     <div className="mt-24 flex h-full flex-col items-center gap-4">
-      <h1 className="mb-6 text-center text-4xl font-bold tracking-tight">
-        Blob Submitter ✨
-      </h1>
+      <div className="text-center">
+        <h1 className="mb-2 text-4xl font-bold tracking-tight">
+          Delightful Blob Submitter ✨
+        </h1>
+        <p className="mb-1 text-muted-foreground">
+          Create and send blobs directly from your browser
+        </p>
+        <div className="text-sm text-muted-foreground">
+          a project by{" "}
+          <Link
+            href="https://www.ephema.io"
+            className="text-purple-300 transition-colors hover:text-purple-400"
+          >
+            ephema
+          </Link>
+        </div>
+      </div>
 
       <SuccessDialog
         dialogOpen={dialogOpen}
