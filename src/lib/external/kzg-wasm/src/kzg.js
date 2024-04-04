@@ -24,29 +24,29 @@ var kzg = (() => {
       B,
       C;
     if (y) {
-      const { createRequire: a } = await import("module");
-      var require = a(import.meta.url),
-        fs = require("fs"),
-        D = require("path");
-      x
-        ? (z = D.dirname(z) + "/")
-        : (z = require("url").fileURLToPath(new URL("./", import.meta.url)));
-      A = (b, d) => {
-        b = E(b) ? new URL(b) : D.normalize(b);
-        return fs.readFileSync(b, d ? void 0 : "utf8");
-      };
-      C = (b) => {
-        b = A(b, !0);
-        b.buffer || (b = new Uint8Array(b));
-        return b;
-      };
-      B = (b, d, e, f = !0) => {
-        b = E(b) ? new URL(b) : D.normalize(b);
-        fs.readFile(b, f ? void 0 : "utf8", (h, q) => {
-          h ? e(h) : d(f ? q.buffer : q);
-        });
-      };
-      process.argv.slice(2);
+      // const { createRequire: a } = await import("module");
+      // var require = a(import.meta.url),
+      //   fs = require("fs"),
+      //   D = require("path");
+      // x
+      //   ? (z = D.dirname(z) + "/")
+      //   : (z = require("url").fileURLToPath(new URL("./", import.meta.url)));
+      // A = (b, d) => {
+      //   b = E(b) ? new URL(b) : D.normalize(b);
+      //   return fs.readFileSync(b, d ? void 0 : "utf8");
+      // };
+      // C = (b) => {
+      //   b = A(b, !0);
+      //   b.buffer || (b = new Uint8Array(b));
+      //   return b;
+      // };
+      // B = (b, d, e, f = !0) => {
+      //   b = E(b) ? new URL(b) : D.normalize(b);
+      //   fs.readFile(b, f ? void 0 : "utf8", (h, q) => {
+      //     h ? e(h) : d(f ? q.buffer : q);
+      //   });
+      // };
+      // process.argv.slice(2);
     } else if (v || x)
       x
         ? (z = self.location.href)
