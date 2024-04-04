@@ -175,7 +175,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                 />
               </FormControl>
               <FormDescription className="flex items-center">
-                Use a burner wallet only{" "}
+                Use burner wallets only{" "}
                 <PrivateKeyInfoButton onUsePrivateKey={handleOnUsePrivateKey} />
               </FormDescription>
               <FormMessage />
