@@ -3,6 +3,19 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
+
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 import {
   Form,
   FormControl,
@@ -38,7 +51,10 @@ import { supportedChains } from "@/lib/supportedChains";
 import { getRandomBlobText } from "@/lib/getRandomBlobText";
 import { isBlobSizeWithinLimit } from "@/lib/isBlobSizeWithinLimit";
 import { Hex, isAddress } from "viem";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown, Copy, Info } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { useCallback, useMemo } from "react";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   privateKey: z
@@ -105,6 +121,13 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
   const { formState, setValue, handleSubmit } = form;
   const { isSubmitting } = formState;
 
+  const handleOnUsePrivateKey = useCallback(
+    (privateKey: Hex) => {
+      setValue("privateKey", privateKey);
+    },
+    [setValue],
+  );
+
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -146,7 +169,10 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
               <FormControl>
                 <Input placeholder="0x..." disabled={isSubmitting} {...field} />
               </FormControl>
-              <FormDescription>Use a burner wallet only</FormDescription>
+              <FormDescription className="flex items-center">
+                Use a burner wallet only{" "}
+                <PrivateKeyInfoButton onUsePrivateKey={handleOnUsePrivateKey} />
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -410,3 +436,107 @@ const SparklesIcon = () => (
     />
   </svg>
 );
+const PrivateKeyInfoButton = ({
+  onUsePrivateKey,
+}: {
+  onUsePrivateKey: (privateKey: Hex) => void;
+}) => {
+  const { burnerPrivateKey, burnerPublicKey } = useMemo(() => {
+    const burnerPrivateKey = generatePrivateKey();
+    const burnerAccount = privateKeyToAccount(burnerPrivateKey);
+    const burnerPublicKey = burnerAccount.address;
+
+    return { burnerPrivateKey, burnerPublicKey };
+  }, []);
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="ml-1 h-6 w-6 text-muted-foreground"
+        >
+          <Info className="h-4 w-4" />
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-lg">
+        <DialogHeader>
+          <DialogTitle>Why add the private key?</DialogTitle>
+          <DialogDescription asChild>
+            <div className="space-y-4">
+              <p className="mb-4 mt-6 max-h-[650px] rounded-lg border border-red-900 bg-red-950 p-4 text-red-300">
+                <b>Your funds might be at risk</b> if you don't use a burner
+                wallet!
+              </p>
+              <p>
+                Although it's possible to send blobs from the browser, wallets
+                like Metamask currently do not allow this. To still be able to
+                send blobs to the network, create a fresh burner wallet.
+              </p>
+              <p>
+                To do this, either create a new keypair in your wallet or use
+                the fresh burner wallet below. Then send some funds to it from
+                your main wallet or a testnet faucet.
+              </p>
+
+              <hr />
+
+              <div className="flex items-end gap-2">
+                <div className="grid flex-1 gap-2">
+                  <Label htmlFor="burnerPrivateKey">Private Key</Label>
+                  <Input
+                    id="burnerPrivateKey"
+                    defaultValue={burnerPrivateKey}
+                    readOnly
+                  />
+                </div>
+                <Button
+                  size="sm"
+                  className="p-3 py-5"
+                  variant="outline"
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(burnerPrivateKey);
+                    toast.success("Private Key copied to clipboard");
+                  }}
+                >
+                  <span className="sr-only">Copy</span>
+                  <Copy className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="flex items-end gap-2">
+                <div className="grid flex-1 gap-2">
+                  <Label htmlFor="burnerPublicKey">Public Key</Label>
+                  <Input
+                    id="burnerPublicKey"
+                    defaultValue={burnerPublicKey}
+                    readOnly
+                  />
+                </div>
+                <Button
+                  size="sm"
+                  className="p-3 py-5"
+                  variant="outline"
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(burnerPublicKey);
+                    toast.success("Public Key copied to clipboard");
+                  }}
+                >
+                  <span className="sr-only">Copy</span>
+                  <Copy className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter className="mt-4 sm:justify-center">
+          <DialogClose asChild>
+            <Button onClick={() => onUsePrivateKey(burnerPrivateKey)}>
+              Use Private Key
+            </Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
