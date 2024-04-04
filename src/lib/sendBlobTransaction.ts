@@ -89,8 +89,6 @@ const createViemWalletClient = ({
   chainId: number;
   rpcUrl?: string;
 }) => {
-  console.log({ privateKey, chainId, rpcUrl });
-
   const account = privateKeyToAccount(privateKey);
   const chain = getChainFromId(chainId);
 
