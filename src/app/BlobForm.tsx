@@ -76,6 +76,7 @@ const formSchema = z.object({
   maxFeePerGasInGwei: z.coerce.number().optional(),
   maxPriorityFeePerGasInGwei: z.coerce.number().optional(),
   nonce: z.coerce.number().optional(),
+  rpcUrl: z.string().url().or(z.literal("")).optional(),
 });
 
 const defaultValues = {
@@ -88,6 +89,7 @@ const defaultValues = {
   nonce: "" as unknown as number, // TODO: Fix type
   maxFeePerGasInGwei: "" as unknown as number, // TODO: Fix type
   maxPriorityFeePerGasInGwei: "" as unknown as number, // TODO: Fix type
+  rpcUrl: "",
 };
 
 type BlobFormProps = {
@@ -328,6 +330,29 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                 )}
               />
             </div>
+
+            <FormField
+              control={form.control}
+              name="rpcUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>RPC URL</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="url"
+                      placeholder="https://rpc.sepolia.org/"
+                      disabled={isSubmitting}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Use this when your transaction fails because the method
+                    handler crashed
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </CollapsibleContent>
         </Collapsible>
 

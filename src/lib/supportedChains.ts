@@ -8,10 +8,3 @@ export const blobscanUrls = {
   Gnosis: "https://gnosis.blobscan.com",
   Holesky: "https://holesky.blobscan.com",
 } as const;
-
-export const blobscanAPIUrls = {
-  Ethereum: "https://api.blobscan.com",
-  Sepolia: "https://api.sepolia.blobscan.com",
-  Gnosis: "https://api.gnosis.blobscan.com",
-  Holesky: "https://api.holesky.blobscan.com",
-} as const;

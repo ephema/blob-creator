@@ -21,19 +21,25 @@ export const sendBlobTransaction = async ({
   maxFeePerGasInGwei,
   maxPriorityFeePerGasInGwei,
   nonce,
+  rpcUrl,
 }: {
   blobContents: string;
   privateKey: Hex;
   chainId: number;
   to: Hex;
   maxFeePerBlobGasInGwei: number;
-  value: number;
-  maxFeePerGasInGwei: number;
-  maxPriorityFeePerGasInGwei: number;
-  nonce: number;
+  value?: number;
+  maxFeePerGasInGwei?: number;
+  maxPriorityFeePerGasInGwei?: number;
+  nonce?: number;
+  rpcUrl?: string;
 }) => {
   const kzg = await getKZG();
-  const walletClient = createViemWalletClient(privateKey, chainId);
+  const walletClient = createViemWalletClient({
+    privateKey,
+    chainId,
+    rpcUrl,
+  });
 
   const txParams = {
     blobs: toBlobs({ data: stringToHex(blobContents) }),
@@ -74,14 +80,24 @@ const getKZG = async () => {
   return kzgPromise;
 };
 
-const createViemWalletClient = (privateKey: Hex, chainId: number) => {
+const createViemWalletClient = ({
+  privateKey,
+  chainId,
+  rpcUrl,
+}: {
+  privateKey: Hex;
+  chainId: number;
+  rpcUrl?: string;
+}) => {
+  console.log({ privateKey, chainId, rpcUrl });
+
   const account = privateKeyToAccount(privateKey);
   const chain = getChainFromId(chainId);
 
   return createWalletClient({
     account,
     chain,
-    transport: http(),
+    transport: http(rpcUrl ? rpcUrl : undefined),
   });
 };
 

@@ -29,16 +29,18 @@ export default function Home() {
       maxFeePerGasInGwei,
       maxPriorityFeePerGasInGwei,
       nonce,
+      rpcUrl,
     }: {
       privateKey: Hex;
       chainId: number;
       blobContents: string;
       to: Hex;
       maxFeePerBlobGasInGwei: number;
-      value: number;
-      maxFeePerGasInGwei: number;
-      maxPriorityFeePerGasInGwei: number;
-      nonce: number;
+      value?: number;
+      maxFeePerGasInGwei?: number;
+      maxPriorityFeePerGasInGwei?: number;
+      nonce?: number;
+      rpcUrl?: string;
     }) => {
       const sendBlobTransactionPromise = sendBlobTransaction({
         blobContents,
@@ -50,6 +52,7 @@ export default function Home() {
         maxFeePerGasInGwei,
         maxPriorityFeePerGasInGwei,
         nonce,
+        rpcUrl,
       });
 
       toast.promise(sendBlobTransactionPromise, {
