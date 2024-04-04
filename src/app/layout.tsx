@@ -35,8 +35,8 @@ export default function RootLayout({
       >
         <WagmiProvider config={wagmiConfig}>
           <QueryClientProvider client={queryClient}>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-              <section className="relative overflow-hidden">
+            <ThemeProvider attribute="class" defaultTheme="dark">
+              <section className="dark relative overflow-hidden">
                 <div
                   className="pointer-events-none absolute left-full top-0 -z-10 hidden aspect-square w-[800px] -translate-x-1/2 -translate-y-1/2 items-center justify-center dark:flex"
                   aria-hidden="true"
@@ -46,7 +46,7 @@ export default function RootLayout({
                 </div>
 
                 <div
-                  className="pointer-events-none absolute right-full -z-10 -mt-16 hidden translate-x-1/2 translate-y-1/2 rotate-90 scale-150 opacity-90 blur-2xl dark:md:block"
+                  className="pointer-events-none absolute right-full -z-10 -mt-16 hidden translate-x-full translate-y-full rotate-90 scale-[400%] opacity-90 blur-2xl dark:block"
                   aria-hidden="true"
                 >
                   <svg

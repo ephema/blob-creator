@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { toast } from "sonner";
 
 import { type Hex } from "viem";
@@ -9,6 +10,8 @@ import { type Hex } from "viem";
 import { sendBlobTransaction } from "@/lib/sendBlobTransaction";
 import { BlobForm } from "./BlobForm";
 import { SuccessDialog } from "./SuccessDialog";
+
+import EphemaLogo from "./logo.png";
 
 export default function Home() {
   const [submittedTransactionDetails, setSubmittedTransactionDetails] =
@@ -73,23 +76,26 @@ export default function Home() {
     [],
   );
   return (
-    <div className="mt-24 flex h-full flex-col items-center gap-4">
+    <div className="mt-20 flex h-full flex-col items-center gap-4">
       <div className="text-center">
-        <h1 className="mb-2 text-4xl font-bold tracking-tight">
-          Delightful Blob Submitter ✨
-        </h1>
-        <p className="mb-1 text-muted-foreground">
-          Create and send blobs directly from your browser
-        </p>
-        <div className="text-sm text-muted-foreground">
-          a project by{" "}
+        <div className="mb-4 flex items-center justify-center text-sm text-muted-foreground">
           <Link
             href="https://www.ephema.io"
-            className="text-purple-500 transition-colors hover:text-purple-600 dark:text-purple-300 dark:hover:text-purple-400"
+            className="mx-2 flex items-center text-purple-500 transition-colors hover:text-purple-600 dark:text-purple-300 dark:hover:text-purple-400"
           >
-            ephema
+            <Image
+              src={EphemaLogo}
+              alt="ephema logo"
+              className="mr-2 h-8 w-8 translate-y-0.5"
+            />
           </Link>
         </div>
+        <h1 className="mb-2 text-4xl font-bold tracking-tight">
+          Delightful Blob Submitter
+        </h1>
+        <p className="mb-1 text-muted-foreground">
+          Create and send blobs directly from your browser ✨
+        </p>
       </div>
 
       <SuccessDialog
