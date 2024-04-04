@@ -143,7 +143,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                     <Textarea
                       placeholder="Your delightful blob..."
                       disabled={isSubmitting}
-                      className="min-h-40"
+                      className="min-h-40 bg-background/40 backdrop-blur-md"
                       {...field}
                     />
                     <RandomBlobButton
@@ -167,7 +167,12 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
             <FormItem>
               <FormLabel>Private Key</FormLabel>
               <FormControl>
-                <Input placeholder="0x..." disabled={isSubmitting} {...field} />
+                <Input
+                  placeholder="0x..."
+                  disabled={isSubmitting}
+                  className="bg-background/40 backdrop-blur-md"
+                  {...field}
+                />
               </FormControl>
               <FormDescription className="flex items-center">
                 Use a burner wallet only{" "}
@@ -193,6 +198,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                   <SelectTrigger>
                     <SelectValue
                       placeholder="Select Chain"
+                      className="bg-background/40 backdrop-blur-md"
                       onBlur={field.onBlur}
                       ref={field.ref}
                     />
@@ -221,7 +227,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
             </CollapsibleTrigger>
           </div>
           <CollapsibleContent>
-            <div className="my-8 grid grid-flow-col grid-cols-3 gap-8">
+            <div className="my-8 grid gap-8 md:grid-flow-col md:grid-cols-3">
               <FormField
                 control={form.control}
                 name="to"
@@ -232,6 +238,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                       <Input
                         placeholder="0x..."
                         disabled={isSubmitting}
+                        className="bg-background/40 backdrop-blur-md"
                         {...field}
                       />
                     </FormControl>
@@ -256,6 +263,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                         min="0"
                         step="0.0000000000001"
                         disabled={isSubmitting}
+                        className="bg-background/40 backdrop-blur-md"
                         {...field}
                       />
                     </FormControl>
@@ -277,6 +285,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                         placeholder="42"
                         min="0"
                         disabled={isSubmitting}
+                        className="bg-background/40 backdrop-blur-md"
                         {...field}
                       />
                     </FormControl>
@@ -289,7 +298,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
               />
             </div>
 
-            <div className="my-8 grid grid-flow-col grid-cols-3 gap-8">
+            <div className="my-8 grid gap-8 md:grid-flow-col md:grid-cols-3">
               <FormField
                 control={form.control}
                 name="maxFeePerBlobGasInGwei"
@@ -301,6 +310,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                         type="number"
                         placeholder="500"
                         disabled={isSubmitting}
+                        className="bg-background/40 backdrop-blur-md"
                         {...field}
                       />
                     </FormControl>
@@ -323,6 +333,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                         type="number"
                         placeholder="500"
                         disabled={isSubmitting}
+                        className="bg-background/40 backdrop-blur-md"
                         {...field}
                       />
                     </FormControl>
@@ -345,6 +356,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                         type="number"
                         placeholder="500"
                         disabled={isSubmitting}
+                        className="bg-background/40 backdrop-blur-md"
                         {...field}
                       />
                     </FormControl>
@@ -368,6 +380,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                       type="url"
                       placeholder="https://rpc.sepolia.org/"
                       disabled={isSubmitting}
+                      className="bg-background/40 backdrop-blur-md"
                       {...field}
                     />
                   </FormControl>
@@ -403,7 +416,7 @@ const RandomBlobButton: React.FC<{
           <Button
             variant="ghost"
             size="icon"
-            className="absolute bottom-2 right-2 text-slate-700 opacity-0 transition-all disabled:opacity-0 group-hover:opacity-100 group-hover:disabled:opacity-0"
+            className="absolute bottom-2 right-2 text-slate-700 transition-all disabled:opacity-0 group-hover:opacity-100 group-hover:disabled:opacity-0 md:opacity-0"
             onClick={onClick}
             disabled={disabled}
             type="button"
@@ -465,7 +478,7 @@ const PrivateKeyInfoButton = ({
           <DialogTitle>Why add the private key?</DialogTitle>
           <DialogDescription asChild>
             <div className="space-y-4">
-              <p className="mb-4 mt-6 max-h-[650px] rounded-lg border border-red-900 bg-red-950 p-4 text-red-300">
+              <p className="mb-4 mt-6 max-h-[650px] rounded-lg border border-red-500 bg-red-100 p-4 text-red-500 dark:border-red-900 dark:bg-red-950 dark:text-red-300">
                 <b>Your funds might be at risk</b> if you don't use a burner
                 wallet!
               </p>

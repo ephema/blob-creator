@@ -85,7 +85,7 @@ export default function Home() {
           a project by{" "}
           <Link
             href="https://www.ephema.io"
-            className="text-purple-300 transition-colors hover:text-purple-400"
+            className="text-purple-500 transition-colors hover:text-purple-600 dark:text-purple-300 dark:hover:text-purple-400"
           >
             ephema
           </Link>
