@@ -1,4 +1,5 @@
 import { Inter as FontSans } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
@@ -38,6 +39,8 @@ export const metadata = {
   },
 };
 
+const googleAnalyticsTrackingId = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
+
 export default function RootLayout({
   children,
 }: {
@@ -61,6 +64,9 @@ export default function RootLayout({
           <Toaster />
         </ThemeProvider>
       </body>
+      {googleAnalyticsTrackingId && (
+        <GoogleAnalytics gaId={googleAnalyticsTrackingId} />
+      )}
     </html>
   );
 }
