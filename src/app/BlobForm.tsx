@@ -195,10 +195,9 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                 onValueChange={field.onChange}
               >
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-background/40 backdrop-blur-md">
                     <SelectValue
                       placeholder="Select Chain"
-                      className="bg-background/40 backdrop-blur-md"
                       onBlur={field.onBlur}
                       ref={field.ref}
                     />
