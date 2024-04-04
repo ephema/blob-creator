@@ -218,7 +218,10 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
 
         <Collapsible>
           <div className="flex justify-center">
-            <CollapsibleTrigger asChild>
+            <CollapsibleTrigger
+              asChild
+              className="text-muted-foreground backdrop-blur-md hover:bg-accent/40"
+            >
               <Button variant="ghost" size="sm">
                 Show Additional Settings
                 <ChevronsUpDown className="ml-2 h-4 w-4" />
