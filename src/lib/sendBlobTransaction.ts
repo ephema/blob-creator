@@ -7,7 +7,8 @@ import {
   type Hex,
 } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
-import { loadKZG } from "kzg-wasm";
+
+import { loadKZG } from "./external/kzg-wasm/src";
 
 import { blobscanUrls, supportedChains } from "@/lib/supportedChains";
 
