@@ -475,7 +475,7 @@ const PrivateKeyInfoButton = ({
       </DialogTrigger>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Why add the private key?</DialogTitle>
+          <DialogTitle>Why add a private key?</DialogTitle>
           <DialogDescription asChild>
             <div className="space-y-4">
               <p className="mb-4 mt-6 max-h-[650px] rounded-lg border border-red-500 bg-red-100 p-4 text-red-500 dark:border-red-900 dark:bg-red-950 dark:text-red-300">
@@ -483,14 +483,15 @@ const PrivateKeyInfoButton = ({
                 burner wallet!
               </p>
               <p>
-                Although it is possible to send blobs from the browser, wallets
-                like Metamask currently do not allow this. To still be able to
-                send blobs to the network, create a fresh burner wallet.
+                With the Blob Creator, you can send blobs directly from your
+                browser. But wallets like Metamask currently do not support this
+                out of the box. So to send blobs, we are using a private key to
+                interact with the Ethereum network directly.
               </p>
               <p>
-                To do this, either create a new keypair in your wallet or use
-                the fresh burner wallet below. Then send some funds to it from
-                your main wallet or a testnet faucet.
+                You can use the keys below for your fresh burner wallet. Save
+                them in a secure place. Add some funds from your main wallet or
+                by using a testnet faucet.
               </p>
 
               <hr />
