@@ -55,7 +55,7 @@ export default function Home() {
       <div className="text-center">
         <Logo />
         <h1 className="mb-2 text-4xl font-bold tracking-tight">
-          Delightful Blob Submitter
+          Delightful Blob Creator
         </h1>
         <p className="mb-1 text-muted-foreground">
           Create and send blobs directly from your browser ✨

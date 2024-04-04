@@ -1,4 +1,3 @@
-"use client";
 import { Inter as FontSans } from "next/font/google";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -14,6 +13,31 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 
+const mainUrl = "https://blobs.ephema.io";
+const isDevelopment = process.env.NODE_ENV === "development";
+const isProductionDeploy = process.env.CONTEXT === "production";
+const deploymentUrl = isProductionDeploy
+  ? mainUrl
+  : process.env.DEPLOY_PRIME_URL || mainUrl;
+
+const metadataBase = isDevelopment
+  ? new URL(`http://localhost:${process.env.PORT || 3000}`)
+  : new URL(deploymentUrl);
+
+export const metadata = {
+  title: "Blob Creator | ephema",
+  description:
+    "Create and submit EIP-4844 blobs to Ethereum directly from your browser",
+  metadataBase: metadataBase,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    siteName: "ephema",
+    type: "website",
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -21,9 +45,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <title>Delightful Blobs</title>
-      </head>
       <body
         className={cn(
           "dark:dark min-h-screen bg-background font-sans antialiased",
