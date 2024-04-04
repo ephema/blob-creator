@@ -27,6 +27,8 @@ const randomSentences = [
   "NFT sed do eiusmod token incididunt ut labore et dolore magna aliqua.",
 ];
 
+const lastSentence = "(created using blobs.ephema.io)";
+
 const getRandomElement = <T>(arr: T[]): T => {
   return arr[Math.floor(Math.random() * arr.length)];
 };
@@ -36,5 +38,5 @@ export const getRandomBlobText = () => {
   const otherSentences = Array.from({ length: 3 }, () =>
     getRandomElement(randomSentences),
   );
-  return [firstSentence, ...otherSentences].join(" ");
+  return [firstSentence, ...otherSentences, lastSentence].join(" ");
 };
