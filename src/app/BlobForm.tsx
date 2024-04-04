@@ -141,7 +141,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                 <div className="flex w-full flex-col gap-2">
                   <div className="group relative transition-opacity">
                     <Textarea
-                      placeholder="Your delightful blob..."
+                      placeholder="Create and send a blob directly from your browser..."
                       disabled={isSubmitting}
                       className="min-h-40 bg-background/40 backdrop-blur-md"
                       {...field}
@@ -308,7 +308,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="500"
+                        placeholder="50"
                         disabled={isSubmitting}
                         className="bg-background/40 backdrop-blur-md"
                         {...field}
@@ -331,7 +331,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="500"
+                        placeholder="50"
                         disabled={isSubmitting}
                         className="bg-background/40 backdrop-blur-md"
                         {...field}
@@ -354,7 +354,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="500"
+                        placeholder="50"
                         disabled={isSubmitting}
                         className="bg-background/40 backdrop-blur-md"
                         {...field}

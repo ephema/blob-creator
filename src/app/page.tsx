@@ -58,7 +58,7 @@ export default function Home() {
           Delightful Blob Creator
         </h1>
         <p className="mb-1 text-muted-foreground">
-          Create and send blobs directly from your browser ✨
+          Making blob space accessible for everyone ✨
         </p>
       </div>
 
