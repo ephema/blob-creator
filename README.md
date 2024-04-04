@@ -1,4 +1,4 @@
-# Delightful Blobs
+# [Blob Creator](https://blobs.ephema.io)
 
 ## Getting Started
 
