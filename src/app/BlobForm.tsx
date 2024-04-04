@@ -141,7 +141,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
                 <div className="flex w-full flex-col gap-2">
                   <div className="group relative transition-opacity">
                     <Textarea
-                      placeholder="Create and send a blob directly from your browser..."
+                      placeholder="Create and send a fresh blob directly from your browser..."
                       disabled={isSubmitting}
                       className="min-h-40 bg-background/40 backdrop-blur-md"
                       {...field}
