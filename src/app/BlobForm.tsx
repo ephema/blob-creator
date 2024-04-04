@@ -479,11 +479,11 @@ const PrivateKeyInfoButton = ({
           <DialogDescription asChild>
             <div className="space-y-4">
               <p className="mb-4 mt-6 max-h-[650px] rounded-lg border border-red-500 bg-red-100 p-4 text-red-500 dark:border-red-900 dark:bg-red-950 dark:text-red-300">
-                <b>Your funds might be at risk</b> if you don't use a burner
-                wallet!
+                <b>Your funds might be at risk</b> if you don&apos;t use a
+                burner wallet!
               </p>
               <p>
-                Although it's possible to send blobs from the browser, wallets
+                Although it is possible to send blobs from the browser, wallets
                 like Metamask currently do not allow this. To still be able to
                 send blobs to the network, create a fresh burner wallet.
               </p>
