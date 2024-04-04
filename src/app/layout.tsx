@@ -25,7 +25,7 @@ const metadataBase = isDevelopment
   : new URL(deploymentUrl);
 
 export const metadata = {
-  title: "Blob Creator | ephema",
+  title: "Ethereum Blob Creator | ephema",
   description:
     "Create and submit EIP-4844 blobs to Ethereum directly from your browser",
   metadataBase: metadataBase,
