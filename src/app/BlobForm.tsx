@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -113,6 +113,7 @@ type BlobFormProps = {
 };
 
 export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
+  const [showAdditionalSettings, setShowAdditionalSettings] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -216,14 +217,17 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
           )}
         />
 
-        <Collapsible>
+        <Collapsible
+          open={showAdditionalSettings}
+          onOpenChange={setShowAdditionalSettings}
+        >
           <div className="flex justify-center">
             <CollapsibleTrigger
               asChild
               className="text-muted-foreground backdrop-blur-md hover:bg-accent/40"
             >
               <Button variant="ghost" size="sm">
-                Show Additional Settings
+                {showAdditionalSettings ? "Hide" : "Show"} Additional Settings
                 <ChevronsUpDown className="ml-2 h-4 w-4" />
               </Button>
             </CollapsibleTrigger>
