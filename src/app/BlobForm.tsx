@@ -1,10 +1,13 @@
 "use client";
+
+import { useCallback, useMemo } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
+import { Hex, isAddress } from "viem";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
-
 import {
   Dialog,
   DialogClose,
@@ -15,7 +18,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 import {
   Form,
   FormControl,
@@ -45,16 +47,14 @@ import {
 } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+
+import { ChevronsUpDown, Copy, Info } from "lucide-react";
 
 import { supportedChains } from "@/lib/supportedChains";
 import { getRandomBlobText } from "@/lib/getRandomBlobText";
 import { isBlobSizeWithinLimit } from "@/lib/isBlobSizeWithinLimit";
-import { Hex, isAddress } from "viem";
-import { ChevronsUpDown, Copy, Info } from "lucide-react";
-import { Label } from "@/components/ui/label";
-import { useCallback, useMemo } from "react";
-import { toast } from "sonner";
 
 const formSchema = z.object({
   privateKey: z

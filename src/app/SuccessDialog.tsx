@@ -8,16 +8,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-
-import { getShortAddress } from "@/lib/getShortAddress";
-import CodeSnippet from "@/components/CodeSnippet";
 import { Copy } from "lucide-react";
 
 type DialogProps = {
