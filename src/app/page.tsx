@@ -54,7 +54,7 @@ export default function Home() {
     <div className="mt-20 flex h-full flex-col items-center gap-4">
       <div className="text-center">
         <Logo />
-        <h1 className="mb-2 text-4xl font-bold tracking-tight">
+        <h1 className="mb-2 bg-gradient-to-r from-slate-200/60 via-slate-200 to-slate-200/60 bg-clip-text text-4xl font-bold tracking-tight text-transparent">
           Delightful Blob Creator
         </h1>
         <p className="mb-1 text-muted-foreground">
