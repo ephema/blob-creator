@@ -497,7 +497,8 @@ const PrivateKeyInfoButton = ({
               <p>
                 You can use the keys below for your fresh burner wallet. Save
                 them in a secure place. Add some funds from your main wallet or
-                by using a testnet faucet.
+                by using a testnet faucet (make sure to send funds on the
+                correct chain).
               </p>
 
               <hr />
