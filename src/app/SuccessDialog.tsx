@@ -43,9 +43,9 @@ export const SuccessDialog: React.FC<DialogProps> = ({
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Transaction Submitted</DialogTitle>
+          <DialogTitle>Transaction Sent</DialogTitle>
           <DialogDescription>
-            Your transaction was successfully sent to the network
+            Your transaction was successfully submitted to the network
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center gap-2">

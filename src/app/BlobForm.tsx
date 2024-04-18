@@ -403,7 +403,7 @@ export const BlobForm: React.FC<BlobFormProps> = ({ onSubmit }) => {
 
         <div className="flex justify-center">
           <Button type="submit" disabled={isSubmitting}>
-            Submit Blob
+            Send Blob
           </Button>
         </div>
       </form>

@@ -35,15 +35,15 @@ export default function Home() {
     }) => {
       const sendBlobTransactionPromise = sendBlobTransaction(args);
       toast.promise(sendBlobTransactionPromise, {
-        loading: "Submitting Blob...",
+        loading: "Sending Blob...",
         success: (transactionDetails) => {
-          console.log("Blob Tx Submitted:", transactionDetails.transactionHash);
+          console.log("Blob Tx sent:", transactionDetails.transactionHash);
           setSubmittedTransactionDetails(transactionDetails);
           setDialogOpen(true);
-          return "Blob successfully submitted";
+          return "Blob successfully sent";
         },
         error:
-          "There was an error submitting your blob. Please check the console for details.",
+          "There was an error sending your blob. Please check the console for details.",
       });
 
       return sendBlobTransactionPromise;
